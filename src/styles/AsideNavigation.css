@@ -1,0 +1,15 @@
+.sidebar {
+  height: 100%;
+  border-right: 1px solid #e3e3e4;
+}
+
+.nav-item {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  background-color: #ededed;
+}
+
+.nav-item:hover {
+  border-right: 2px solid #50b4c8;
+  cursor: pointer;
+}
