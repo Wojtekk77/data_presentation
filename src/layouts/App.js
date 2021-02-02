@@ -15,7 +15,7 @@ function App() {
       <main>
         <Container fluid>
           <Row>
-            <Col xs={1} id="sidebar-wrapper" className="bg-light px-0">
+            <Col xs={1} id="sidebar-wrapper" className="px-0">
               <aside className="h-100">
                 <AsideNavigation />
               </aside>

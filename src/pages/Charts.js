@@ -14,7 +14,6 @@ export const Charts = ({
   storeData,
   addData,
   match,
-  setActiveColumns,
   setColumns,
   activeColumns,
   columns,
@@ -78,19 +77,23 @@ export const Charts = ({
 
   useEffect(() => {
     if (!storeData.data.some((el) => el.dataName === dataName)) {
-      Axios.get(`/data_presentation/data/${dataName}.csv`).then((result) => {
-        const data = Papa.parse(result.data.replace(/,/g, "."), {
-          dynamicTyping: true,
+      Axios.get(`/data_presentation/data/${dataName}.csv`)
+        .then((result) => {
+          const data = Papa.parse(result.data.replace(/,/g, "."), {
+            dynamicTyping: true,
+          });
+          const correctedData = Papa.parse(proceedData(data.data), {
+            header: true,
+            dynamicTyping: true,
+          });
+          //add corrected data to store
+          addData(correctedData.data, dataName, correctedData.meta.fields);
+          //add columns to store
+          setColumns(correctedData.meta.fields.slice(1));
+        })
+        .catch((err) => {
+          console.log(err);
         });
-        const correctedData = Papa.parse(proceedData(data.data), {
-          header: true,
-          dynamicTyping: true,
-        });
-        //add corrected data to store
-        addData(correctedData.data, dataName, correctedData.meta.fields);
-        //add columns to store
-        setColumns(correctedData.meta.fields.slice(1));
-      });
     }
   }, [dataName]);
 
@@ -145,8 +148,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     addData: (data, dataName, columnNames) =>
       dispatch(addDataAction(data, dataName, columnNames)),
-    setActiveColumns: (columnNames) =>
-      dispatch(activeColumnsAction(columnNames)),
     setColumns: (columnNames) => dispatch(setColumnsAction(columnNames)),
   };
 };

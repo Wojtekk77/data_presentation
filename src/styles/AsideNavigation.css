@@ -7,9 +7,18 @@
   margin-top: 3px;
   margin-bottom: 3px;
   background-color: #ededed;
+  text-align: right;
 }
 
 .nav-item:hover {
   border-right: 2px solid #50b4c8;
   cursor: pointer;
+  background-color: #adadad;
+}
+
+.nav-item a {
+  cursor: pointer;
+  padding: 5px 15px 5px 15px;
+  text-decoration: none;
+  color: #2f2f2f;
 }

@@ -26,9 +26,7 @@ const AsideNavigation = (props) => {
 
   return (
     <>
-      <Nav className="col-md-12 d-none p-0 m-0 d-md-block bg-light sidebar">
-        {nav}
-      </Nav>
+      <Nav className="col-md-12 d-none p-0 m-0 d-md-block sidebar">{nav}</Nav>
     </>
   );
 };
