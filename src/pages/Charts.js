@@ -77,20 +77,22 @@ export const Charts = ({
   };
 
   useEffect(() => {
-    Axios.get(`/data_presentation/data/${dataName}.csv`).then((result) => {
-      const data = Papa.parse(result.data.replace(/,/g, "."), {
-        dynamicTyping: true,
+    if (!storeData.data.some((el) => el.dataName === dataName)) {
+      Axios.get(`/data_presentation/data/${dataName}.csv`).then((result) => {
+        const data = Papa.parse(result.data.replace(/,/g, "."), {
+          dynamicTyping: true,
+        });
+        const correctedData = Papa.parse(proceedData(data.data), {
+          header: true,
+          dynamicTyping: true,
+        });
+        //add corrected data to store
+        addData(correctedData.data, dataName, correctedData.meta.fields);
+        //add columns to store
+        setColumns(correctedData.meta.fields.slice(1));
       });
-
-      const correctedData = Papa.parse(proceedData(data.data), {
-        header: true,
-        dynamicTyping: true,
-      });
-      //add corrected data to store
-      addData(correctedData.data, dataName, correctedData.meta.fields);
-      //add columns to store
-      setColumns(correctedData.meta.fields.slice(1));
-    });
+      console.log("i am in useEffect");
+    }
   }, [dataName]);
 
   const [chartData] = storeData.data.filter((el) => el.dataName === dataName);
