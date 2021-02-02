@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
@@ -6,25 +6,22 @@ import { DataGrid } from "@material-ui/data-grid";
 export const DataTable = ({ chartData, dataName, columns }) => {
   const downloadData = `data/${dataName}.csv`;
 
-  let mycolumns = [{ field: "id", headerName: "X" }].concat(
+  let cols = [{ field: "id", headerName: "X" }].concat(
     columns.map((el) => {
       return { field: el.id, headerName: el.name };
     })
   );
 
-  const myrows = chartData.chartData.map((el) => {
+  const rows = chartData.chartData.map((el) => {
     return { ...el, id: el.X };
   });
 
-  // console.log("czymycolumns sie aktualizuje", activeColumns);
-
   return (
     <>
-      {/* <p>{activeColumns.map((el) => el.id)}</p> */}
       <div style={{ height: 400, width: "100%" }}>
         <DataGrid
-          rows={myrows}
-          columns={mycolumns}
+          rows={rows}
+          columns={cols}
           pageSize={7}
           rowHeight={38}
           columnsWidth={170}

@@ -7,9 +7,12 @@ const initialState = {
 export const filterReducer = (state = initialState, action) => {
   switch (action.type) {
     case "ACTIVE_COLUMNS":
+      const active = action.activeColumns.some((e) => e.name === "Y1")
+        ? action.activeColumns
+        : action.activeColumns.concat({ name: "Y1", id: "Y1" });
       return {
         ...state,
-        activeColumns: action.activeColumns.sort((a, b) =>
+        activeColumns: active.sort((a, b) =>
           a.name < b.name ? -1 : Number(a.name > b.name)
         ),
       };
@@ -19,7 +22,9 @@ export const filterReducer = (state = initialState, action) => {
         columns: action.columns.map((col) => {
           return { name: col, id: col };
         }),
-        preselectedValues: [{ name: "Y1", id: "Y1" }],
+        activeColumns: action.columns.map((e) => {
+          return { name: e, id: e };
+        }),
       };
 
     default:

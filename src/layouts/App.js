@@ -5,7 +5,6 @@ import Header from "./Header.js";
 import Page from "./Page";
 import Footer from "./Footer";
 import AsideNavigation from "./Navigation/AsideNavigation";
-import PageNavigation from "./Navigation/PageNavigation";
 
 function App() {
   return (

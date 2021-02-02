@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { Nav } from "react-bootstrap";
@@ -11,8 +11,6 @@ const list = [
 ];
 
 const AsideNavigation = (props) => {
-  const [color, setColor] = useState("#777777");
-
   const nav = list.map((item) => (
     <Nav.Item key={item.name} className="py-2">
       <NavLink
@@ -28,11 +26,7 @@ const AsideNavigation = (props) => {
 
   return (
     <>
-      <Nav
-        className="col-md-12 d-none p-0 m-0 d-md-block bg-light sidebar"
-        activeKey="/"
-        // onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-      >
+      <Nav className="col-md-12 d-none p-0 m-0 d-md-block bg-light sidebar">
         {nav}
       </Nav>
     </>

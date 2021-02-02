@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Row, Col, Button } from "react-bootstrap";
 import "../../styles/PageNavigation.css";
@@ -10,7 +10,6 @@ export const PageNavigation = ({ filter, setActiveColumn }) => {
   };
 
   const onRemove = (e) => {
-    console.log("on remove", e);
     onSelect(e);
   };
 
@@ -29,7 +28,6 @@ export const PageNavigation = ({ filter, setActiveColumn }) => {
               onSelect={(e) => onSelect(e)} // Function will trigger on select event
               onRemove={(e) => onRemove(e)} // Function will trigger on remove event
               displayValue="name" // Property name to display in the dropdown options
-              showCheckbox={true}
               disablePreSelectedValues={false}
               closeOnSelect={false}
               avoidHighlightFirstOption={true}

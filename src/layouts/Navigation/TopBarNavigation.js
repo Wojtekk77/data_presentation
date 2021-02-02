@@ -1,16 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { authAction } from "../../acions/authActions";
-import {
-  Col,
-  Row,
-  Navbar,
-  Nav,
-  NavDropdown,
-  Form,
-  FormControl,
-  Button,
-} from "react-bootstrap";
+import { Navbar, Nav, Form, Button } from "react-bootstrap";
 
 export const TopBarNavigation = ({ isLoggedIn, auth }) => {
   return (

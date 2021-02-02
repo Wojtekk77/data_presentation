@@ -1,31 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import {
-  LineChart,
-  Line,
   CartesianGrid,
   XAxis,
   YAxis,
   AreaChart,
   Area,
   Tooltip,
-  PieChart,
-  Pie,
-  Sector,
-  Cell,
   ResponsiveContainer,
 } from "recharts";
 
 export const Chart = ({ chartData, activeColumns }) => {
-  // const colsNumber = Object.keys(chartData.chartData[0]).length;
-  // const simpleArr = Array.apply(null, Array(colsNumber - 1)).map(
-  //   (x, i) => i + 1
-  // );
-  console.log("act in CHART", activeColumns);
   const wykresy = activeColumns.map((el) => {
-    // console.log(el);
     return (
-      <div className="card my-4">
+      <div key={el.id} className="card my-4">
         <div className="card-block">
           <h6 className="pl-3">Wykres dla kolumny {el.id}</h6>
           <ResponsiveContainer minHeight={300}>

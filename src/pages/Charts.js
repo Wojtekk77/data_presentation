@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import Chart from "../components/Chart";
 import Papa from "papaparse";
@@ -19,7 +19,13 @@ export const Charts = ({
   activeColumns,
   columns,
 }) => {
-  let dataName = `dane${match.params.id}`;
+  const dataName = `dane${match.params.id}`;
+
+  //delete rows which not contains enough data
+  const deleteUnwantedRows = (array) => {
+    return array.filter((arr) => arr.length > 2);
+  };
+
   const roundBigNumber = (n, scale = 1000) => {
     return n > scale ? Math.round(n) : n;
   };
@@ -31,6 +37,8 @@ export const Charts = ({
     );
   };
 
+  // replace not numerical data from matrix to avg
+  // last item return previous value if not number
   const clearDummyData = (array) => {
     const clearedArray = array.map((arr) => {
       let newArr = [];
@@ -52,44 +60,36 @@ export const Charts = ({
     return clearedArray;
   };
 
+  const roundBigData = (array) => {
+    let roundedData = array.map((arr) => {
+      const el = arr.map((e) => {
+        return roundBigNumber(e);
+      });
+      return el;
+    });
+    return roundedData;
+  };
+
+  const proceedData = (arr) => {
+    return roundBigData(
+      transpose(clearDummyData(transpose(deleteUnwantedRows(arr))))
+    ).join("\n");
+  };
+
   useEffect(() => {
     Axios.get(`/data_presentation/data/${dataName}.csv`).then((result) => {
-      const data2 = Papa.parse(result.data.replace(/,/g, "."), {
+      const data = Papa.parse(result.data.replace(/,/g, "."), {
         dynamicTyping: true,
       });
 
-      const cl = data2.data.filter((el) => el.length > 2);
-
-      const t = transpose(cl);
-
-      const c = clearDummyData(t);
-
-      const t1 = transpose(c);
-
-      let finalClear = t1.map((arr) => {
-        const el = arr.map((e) => {
-          return roundBigNumber(e);
-        });
-        return el;
-      });
-
-      finalClear = finalClear.join("\n");
-      const myPapa = Papa.parse(finalClear, {
+      const correctedData = Papa.parse(proceedData(data.data), {
         header: true,
         dynamicTyping: true,
       });
-
-      const clearedRow = myPapa.data.filter((el) => el.X !== null);
-
-      addData(clearedRow, dataName, myPapa.meta.fields);
-      setColumns(myPapa.meta.fields.slice(1));
-      setActiveColumns(
-        myPapa.meta.fields
-          .map((e) => {
-            return { name: e, id: e };
-          })
-          .slice(1)
-      );
+      //add corrected data to store
+      addData(correctedData.data, dataName, correctedData.meta.fields);
+      //add columns to store
+      setColumns(correctedData.meta.fields.slice(1));
     });
   }, [dataName]);
 
@@ -128,7 +128,7 @@ export const Charts = ({
           </Row>
         </>
       ) : (
-        <p>ładowanie</p>
+        <p>ładowanie...</p>
       )}
     </>
   );

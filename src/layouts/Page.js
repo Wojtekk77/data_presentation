@@ -9,10 +9,8 @@ export const Page = (props) => {
     <>
       <Switch>
         <Route path="/" exact component={Homepage} />
+        <Route path="/data_presentation/" exact component={Homepage} />
         <Route path="/charts/:id" component={Charts} />
-
-        {/* <Route path="/login" component={LoginPage} /> */}
-        {/* <Route component={ErrorPage} /> */}
       </Switch>
     </>
   );

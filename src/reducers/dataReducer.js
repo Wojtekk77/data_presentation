@@ -6,7 +6,6 @@ export const dataReducer = (state = initialState, action) => {
       const alreadyIn = state.data.filter(
         (el) => el.dataName === action.dataName
       ).length;
-      // console.log("alrearyIn", alreadyIn);
       if (alreadyIn) return { ...state };
       return {
         ...state,

@@ -1,5 +1,4 @@
 export const activeColumnsAction = (activeColumns) => {
-  console.log("active columns in action", activeColumns);
   return { type: "ACTIVE_COLUMNS", activeColumns };
 };
 
