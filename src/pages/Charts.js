@@ -91,7 +91,6 @@ export const Charts = ({
         //add columns to store
         setColumns(correctedData.meta.fields.slice(1));
       });
-      console.log("i am in useEffect");
     }
   }, [dataName]);
 
