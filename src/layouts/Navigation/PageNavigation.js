@@ -50,7 +50,7 @@ export const PageNavigation = ({ filter, setActiveColumn }) => {
           </Col>
         </Row>
       ) : (
-        <p>asdadwd</p>
+        <p>ładowanie...</p>
       )}
     </>
   );
