@@ -53,7 +53,7 @@ export const Charts = ({
   };
 
   useEffect(() => {
-    Axios.get(`/data/${dataName}.csv`).then((result) => {
+    Axios.get(`/data_presentation/data/${dataName}.csv`).then((result) => {
       const data2 = Papa.parse(result.data.replace(/,/g, "."), {
         dynamicTyping: true,
       });
@@ -99,8 +99,8 @@ export const Charts = ({
     <>
       {chartData ? (
         <>
-          <PageNavigation dataName={dataName}  />
-         
+          <PageNavigation dataName={dataName} />
+
           <Row id="charts" className="px-5 pt-5">
             <Col xs={8}>
               <Chart
