@@ -39,7 +39,7 @@ export const Charts = ({
   // replace not numerical data from matrix to avg
   // last item return previous value if not number
   const clearDummyData = (array) => {
-    const clearedArray = array.map((arr) => {
+    return array.map((arr) => {
       let newArr = [];
       for (let i = 0; i < arr.length - 1; i++) {
         newArr =
@@ -56,17 +56,15 @@ export const Charts = ({
           : (newArr = newArr.concat(arr[arr.length - 1]));
       return newArr;
     });
-    return clearedArray;
   };
 
   const roundBigData = (array) => {
-    let roundedData = array.map((arr) => {
+    return array.map((arr) => {
       const el = arr.map((e) => {
         return roundBigNumber(e);
       });
       return el;
     });
-    return roundedData;
   };
 
   const proceedData = (arr) => {
